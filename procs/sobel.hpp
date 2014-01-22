@@ -57,7 +57,7 @@ struct sobel_functor
 #if BOOST_VERSION > 105000
       dst[c] = boost::algorithm::clamp( std::sqrt( sum_square ), min_val, max_val );
 #else
-      dst[c] = std::min(std::max(std::sqrt(sum_square), min_val), max_val);
+      dst[c] = std::min<channel_t>(std::max<channel_t>(std::sqrt(sum_square), min_val), max_val);
 #endif
     }
     return dst;
