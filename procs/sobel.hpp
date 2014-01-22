@@ -5,6 +5,7 @@
 
 #include <boost/gil/gil_all.hpp>
 #include <boost/gil/algorithm.hpp>
+#include <boost/version.hpp>
 
 #include "filter_8_neighbor.hpp"
 
@@ -53,8 +54,11 @@ struct sobel_functor
             ( bottom_right[c] *  1 )
             );
 
+#if BOOST_VERSION > 105000
       dst[c] = boost::algorithm::clamp( std::sqrt( sum_square ), min_val, max_val );
-
+#else
+      dst[c] = std::min(std::max(std::sqrt(sum_square), min_val), max_val);
+#endif
     }
     return dst;
   }
